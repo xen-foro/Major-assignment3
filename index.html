@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Force Layout</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="network.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .controls {
+            margin: 20px;
+        }
+        svg {
+            width: 60vw;
+            height: 60vw;
+        }
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: auto;
+            height: auto;
+            padding: 5px;
+            font: 20px sans-serif;
+            background: rgb(191, 189, 189);
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <label>Charge Strength: 
+            <input type="range" id="chargeStrength" min="-500" max="0" value="-50">
+        </label>
+        <label>Collision Radius: 
+            <input type="range" id="collisionRadius" min="0" max="50" value="12">
+        </label>
+        <label>Link Strength: 
+            <input type="range" id="linkStrength" min="0" max="1" step="0.1" value="0.5">
+        </label>
+    </div>
+    <div class="tooltip" style="opacity:0;"></div>
+
+    <script>
+        d3.json("publication_network.json").then(function (data) {
+            let svg = d3.select('body').append("svg").attr("viewBox", "0 0 1000 800");
+            simulate(data, svg); // main function to make network
+        });
+    </script>
+</body>
+</html>
